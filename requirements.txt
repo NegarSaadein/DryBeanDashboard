@@ -8,9 +8,6 @@ scipy==1.11.4
 imbalanced-learn==0.12.4
 xgboost==2.1.4
 lightgbm==4.6.0
-shap==0.44.1
-numba==0.58.1
-llvmlite==0.41.1
 joblib==1.4.2
 requests==2.32.3
 ucimlrepo==0.0.7
