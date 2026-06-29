@@ -3,10 +3,6 @@ from shiny import render
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.model_selection import learning_curve, StratifiedKFold
-from sklearn.metrics import roc_curve, auc
-from sklearn.metrics import confusion_matrix
-from sklearn.preprocessing import label_binarize
 from preprocessing import (
     missing_count,
     df_clean,
@@ -90,7 +86,7 @@ def server(input, output, session):
 
         sns.heatmap(
             corr_matrix,
-            annot=True,
+            annot=False,
             fmt=".2f",
             cmap="RdBu_r",
             center=0,
@@ -152,7 +148,7 @@ def server(input, output, session):
             "ShapeFactor2",
             "ShapeFactor1",
             "MinorAxisLength",
-            "roundness",
+            "Roundness",
             "Eccentricity",
             "Class"
         ]
@@ -162,10 +158,7 @@ def server(input, output, session):
             if f in df.columns
         ]
 
-        sample_df = df[available].sample(
-            1000,
-            random_state=42
-        )
+        sample_df = df[available].sample(500, random_state=42)
 
         g = sns.pairplot(
             sample_df,
