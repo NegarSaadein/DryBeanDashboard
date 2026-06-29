@@ -39,7 +39,6 @@ def get_models(best_k, best_kernel):
             max_iter=5000,
             C=1.0,
             solver="lbfgs",
-            multi_class="multinomial",
             random_state=42
         ),
 
@@ -233,9 +232,4 @@ results_df = results_df.sort_values(
 best_row = results_df.loc[
     results_df["Best_Accuracy"].idxmax()
 ]
-
-from models import (
-    results_df,
-    best_row
-)
 
