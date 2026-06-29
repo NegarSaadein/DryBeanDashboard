@@ -1,6 +1,5 @@
 from shiny import ui
 from components import (
-    create_header,
     create_home,
     create_dataset,
     create_eda,
