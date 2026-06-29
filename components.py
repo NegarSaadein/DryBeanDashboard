@@ -1,32 +1,7 @@
 from shiny import ui
 from data_loader import df
-import pandas as pd
-import matplotlib.pyplot as plt
-from shiny import render
-
-def create_header():
-
-    return ui.div(
-
-        ui.h1("Dry Bean Classification Dashboard"),
-
-        ui.p(
-            "Comparison of Machine Learning Models for Dry Bean Classification"
-        ),
-
-        ui.hr()
-
-    )
 
 def create_dataset():
-
-    # Class Distribution
-    class_count = df["Class"].value_counts().reset_index()
-    class_count.columns = ["Class", "Count"]
-
-    # Missing Values
-    missing = df.isnull().sum().reset_index()
-    missing.columns = ["Feature", "Missing Values"]
 
     return ui.div(
 
@@ -97,11 +72,12 @@ def create_dataset():
 
     )
 
+
 def create_home():
 
     return ui.div(
 
-        #معرفی پروژه 
+        # Project Overview
 
         ui.card(
 
@@ -109,9 +85,11 @@ def create_home():
 
             ui.p(
                 """
-                This dashboard presents a complete machine learning pipeline for Dry Bean Classification.
-                The project includes data preprocessing, hyperparameter tuning, comparison of nine machine
-                learning models,and comprehensive performance evaluation.
+                This dashboard presents a complete machine learning pipeline
+                for Dry Bean Classification. The project includes data
+                preprocessing, feature scaling, SMOTE oversampling,
+                hyperparameter tuning, comparison of nine machine learning
+                models, and comprehensive performance evaluation.
                 """
             )
 
@@ -119,22 +97,22 @@ def create_home():
 
         ui.br(),
 
-        # کارت‌های آماری 
+        # Dashboard Statistics
 
         ui.layout_columns(
 
             ui.value_box(
-                "13,611",
+                str(df.shape[0]),
                 "Samples"
             ),
 
             ui.value_box(
-                "16",
+                str(df.shape[1] - 1),
                 "Features"
             ),
 
             ui.value_box(
-                "7",
+                str(df["Class"].nunique()),
                 "Classes"
             ),
 
@@ -147,34 +125,27 @@ def create_home():
 
         ui.br(),
 
-        #  دو ستون 
+        # Information Cards
 
         ui.layout_columns(
 
-            # ستون اول
             ui.card(
 
                 ui.card_header("Dataset Information"),
 
                 ui.tags.ul(
 
-                    ui.tags.li("Dataset : Dry Bean Dataset"),
-
-                    ui.tags.li("Source : UCI Machine Learning Repository"),
-
-                    ui.tags.li("Samples : 13,611"),
-
-                    ui.tags.li("Features : 16"),
-
-                    ui.tags.li("Classes : 7"),
-
-                    ui.tags.li("Classification : Multi-Class")
+                    ui.tags.li("Dataset: Dry Bean Dataset"),
+                    ui.tags.li("Source: UCI Machine Learning Repository"),
+                    ui.tags.li(f"Samples: {df.shape[0]:,}"),
+                    ui.tags.li(f"Features: {df.shape[1] - 1}"),
+                    ui.tags.li(f"Classes: {df['Class'].nunique()}"),
+                    ui.tags.li("Classification: Multi-Class")
 
                 )
 
             ),
 
-            # ستون دوم
             ui.card(
 
                 ui.card_header("Project Objectives"),
@@ -182,18 +153,12 @@ def create_home():
                 ui.tags.ul(
 
                     ui.tags.li("Data Preprocessing"),
-
                     ui.tags.li("Feature Scaling"),
-
                     ui.tags.li("SMOTE Oversampling"),
-
                     ui.tags.li("Hyperparameter Tuning"),
-
-                    ui.tags.li("Comparison of 9 Models"),
-
+                    ui.tags.li("Comparison of 9 Machine Learning Models"),
                     ui.tags.li("Performance Evaluation"),
-
-                    ui.tags.li("Final Prediction")
+                    ui.tags.li("Best Model Selection")
 
                 )
 
@@ -203,7 +168,7 @@ def create_home():
 
         ui.br(),
 
-        #  Workflow 
+        # Workflow
 
         ui.card(
 
@@ -242,27 +207,8 @@ Model Evaluation
         )
 
     )
-def create_eda():
 
-    return ui.div(
 
-        ui.h2("Exploratory Data Analysis"),
-
-        ui.p(
-            "Visualization and statistical exploration of the Dry Bean Dataset."
-        ),
-
-        ui.br(),
-
-        ui.card(
-
-            ui.card_header("Class Distribution"),
-
-            ui.output_plot("class_distribution")
-
-        )
-
-    )
 def create_eda():
 
     return ui.div(
@@ -356,6 +302,8 @@ def create_statistics():
         )
 
     )
+
+
 def create_preprocessing():
 
     return ui.div(
@@ -573,7 +521,7 @@ def create_evaluation():
                 "Best Model (SHAP)",
                 ui.img(
                     src="Computing_SHAP_for_best_model.png",
-                    style="width:100%; display:block; margin:auto;"
+                    style="width:100%;max-width:1400px; display:block; margin:auto;"
                 )
             ),
 
@@ -581,7 +529,7 @@ def create_evaluation():
                 "Best Model Importance",
                 ui.img(
                     src="Feature_Importance_for_best_model.png",
-                    style="width:100%; display:block; margin:auto;"
+                    style="width:100%;max-width:1400px; display:block; margin:auto;"
                 )
             ),
 
@@ -589,7 +537,7 @@ def create_evaluation():
                 "Random Forest",
                 ui.img(
                     src="Feature_Importance_for_Random_Forest.png",
-                    style="width:100%; display:block; margin:auto;"
+                    style="width:100%;max-width:1400px; display:block; margin:auto;"
                 )
             ),
 
@@ -597,7 +545,7 @@ def create_evaluation():
                 "Logistic Regression",
                 ui.img(
                     src="Feature_Importance_for_Logistic_Regression.png",
-                    style="width:100%; display:block; margin:auto;"
+                    style="width:100%;max-width:1400px; display:block; margin:auto;"
                 )
             ),
 
